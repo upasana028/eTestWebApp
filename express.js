@@ -146,6 +146,16 @@ res.send("We got this test!");
 		
 		});
 
+	
+socket.on('logUser',function(obj){
+	obj = (JSON.parse(JSON.stringify(obj)));
+	db.userlog.create({
+	    		userEmail:obj.email,
+	    		userSchoolName:obj.scName,
+	    		userDate: Date(),
+	    		userFileHit: obj.file
+	    	});
+});
 
 
 });

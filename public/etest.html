@@ -105,6 +105,25 @@
 <div class="jumbotron">
   
   <div id="TestWindow" class="well">
+  
+  <div id="startContent" >
+    Welcome!<br>
+    <form>
+    Your Name: &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<input id="aUserEmail" type="text" required></input><br>
+    Your SchoolName:
+    <select name="aUserSchoolName" id="aUserSchoolName">
+      <option value="Other">Other</option>
+  <option value="OPS">Oswal Public School</option>
+  <option value="MSSS">MSS School, Patiala</option>
+  <option value="AS">AS Modern</option>
+</select>
+
+   <a id="aEmailSubmit" href="#" onclick="showTestIf()" class="btn btn-primary btn-md" type="submit" style="">
+    Submit
+    </a>
+    </form>
+    </div>
+
   <div id="quesContent">
   <input type="hidden" id="Qid" value="">
   <input type="hidden" id="Sid" value="">
@@ -122,10 +141,11 @@
     Test Ends !<br>
     Score = <p id="resultTotal-end"><p> out of <p id="resultTotal-ques"></p>
     </div>
+ 
   </div>
 
   <div id="QuestionNavBar" class="QuestionNavBar">
-    <a id="aLogOff" href="#" onclick="showNext()" class="btn btn-primary btn-lg" style="">
+    <a id="aLogOff" href="#" onclick="showNext()" class="btn btn-primary btn-lg" style="display:none">
     next
     </a>
    

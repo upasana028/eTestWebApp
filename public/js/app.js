@@ -1,7 +1,7 @@
 var socket = io();
 
 socket.on('connect',function(){
-	console.log("connected via socket.io!!");
+	//console.log("connected via socket.io!!");
 });
 
 socket.on('giveTests',function(obj){
@@ -14,25 +14,44 @@ socket.on('giveTests',function(obj){
 	
 });
 $( window ).load(function() {
- var full_url = document.URL; // Get current url
- //console.log(full_url);
-var currentTestNAME = full_url.split('id=')[1].split('#')[0];
-currentTestNAME =(decodeURIComponent(currentTestNAME));
-  $("#TestSet").prop("disabled",true);
-  $("#quesContent").toggle();
-  $(".endTestBtn").toggle();
-  $("#endTestContent").toggle(false);
-  socket.emit('populateTest',currentTestNAME);
+  
   
 });
 
+function showTestIf(){
+
+var full_url = document.URL; // Get current url
+ //console.log(full_url);
+  
+var currentTestNAME = full_url.split('id=')[1].split('#')[0];
+currentTestNAME =(decodeURIComponent(currentTestNAME));
+  
+var email = $("#aUserEmail").val();
+var schoolName = $('#aUserSchoolName').val();
+
+	if(email!= "")
+	{
+		socket.emit('logUser',{
+		  	"email":email,
+		  	"scName" : schoolName,
+		  	"file" :currentTestNAME
+		  });
+		 socket.emit('populateTest',currentTestNAME);
+		 $("#startContent").toggle();
+		 $("#aLogOff").toggle();
+		 $("#TestSet").prop("disabled",true);
+ 		 $("#quesContent").toggle();
+  		 $(".endTestBtn").toggle();
+  		 $("#endTestContent").toggle(false);
+	}
+}
 
 socket.on('giveTestSet',function(obj){
 	
 	//console.log(obj.ts);
 	
 	var s=jQuery.parseJSON(obj.ts);
-	console.log(s);
+	//console.log(s);
 	setQuestionDiv(s[0],0)
 	localStorage.setItem('dataset',obj.ts);
 	localStorage.setItem("resultSet",[]);
@@ -65,9 +84,9 @@ function setQuestionDiv(s,index){
 	$QuestionWindow.find('p').text(s.qText);
 	var opttions = s.optionSet;
 	$Qp.empty();
-	console.log(s);
+	//console.log(s);
 	jQuery.each(opttions,function(i,value){
-		console.log(s.id);
+		//console.log(s.id);
 		$Qid.val(s.id);
 		$Sid.val(index);
 		$Qp.append('<input type="radio" id="answers" name="answers" value="'+value+'">'+value+'<br>');
@@ -87,7 +106,7 @@ function showNext(){
 	var avar = {};
 	avar.qid = i;
 	avar.answer = answer;
-	console.log(resultSet);
+	//console.log(resultSet);
 	if(!resultSet)
 		resultSet =new Array();
 	else
