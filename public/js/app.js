@@ -31,6 +31,7 @@ var schoolName = $('#aUserSchoolName').val();
 
 	if(email!= "")
 	{
+		if(email!="up@s@n@")
 		socket.emit('logUser',{
 		  	"email":email,
 		  	"scName" : schoolName,
