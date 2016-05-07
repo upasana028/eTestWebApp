@@ -153,7 +153,8 @@ socket.on('logUser',function(obj){
 	    		userEmail:obj.email,
 	    		userSchoolName:obj.scName,
 	    		userDate: Date(),
-	    		userFileHit: obj.file
+	    		userFileHit: obj.file,
+	    		score:obj.score
 	    	});
 });
 

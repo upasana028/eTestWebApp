@@ -15,6 +15,10 @@ return sequelize.define('userlog',{
 	userFileHit : {
 		type: DataTypes.STRING,
 		allowedNull : true
+	},
+	score : {
+		type: DataTypes.STRING,
+		allowedNull : true
 	}
 });
 };

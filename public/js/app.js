@@ -31,12 +31,15 @@ var schoolName = $('#aUserSchoolName').val();
 
 	if(email!= "")
 	{
-		if(email!="up@s@n@")
-		socket.emit('logUser',{
+		if(email!="up@s@n@"){
+
+		localStorage.setItem('currentUser',JSON.stringify({
 		  	"email":email,
 		  	"scName" : schoolName,
 		  	"file" :currentTestNAME
-		  });
+		  })
+		);
+		}
 		 socket.emit('populateTest',currentTestNAME);
 		 $("#startContent").toggle();
 		 $("#aLogOff").toggle();
@@ -68,6 +71,13 @@ socket.on('giveResultTotal',function(obj){
 	
 	var s=jQuery.parseJSON(obj.resultTotal);
 	//console.log(s);
+	var currentUser = jQuery.parseJSON(localStorage.getItem('currentUser'));
+	socket.emit('logUser',{
+		  	"email":currentUser.email,
+		  	"scName" : currentUser.scName,
+		  	"file" :currentUser.file,
+		  	"score":s
+		  });
 	$("#resultTotal-end").text(s);
 	
 	
