@@ -65,6 +65,21 @@ socket.on('giveTestSet',function(obj){
 	
 });
 
+socket.on('giveMIS',function(obj){
+	
+	
+	var s=jQuery.parseJSON(obj.ts);
+	var data = "<tr><th>Email</th><th>schoolName</th><th>File</th><th>Score</th></tr>";
+	$("#misresult").empty();
+	console.log(s[0].length);
+	for (var i = s[0].length - 1; i >= 0; i--) {
+		data = data + "<tr><td>"+s[0][i].userEmail + "</td><td>"+s[0][i].userSchoolName+"</td><td>"
+		+s[0][i].userFileHit+"</td><td>"+s[0][i].score+"</td></tr>"
+	};
+	
+	$("#misresult").append(data);
+});
+
 socket.on('giveResultTotal',function(obj){
 	
 	//console.log(obj.ts);
@@ -142,6 +157,15 @@ function showNext(){
 	//alert("hello");
 }
 
+function mis(){
+	var month = jQuery('#month option:selected').val();
+	var day = jQuery('#day').val();
+	var year = jQuery('#year option:selected').val();
+	var d = new Date(year,month,day);
+	console.log(d);
+	socket.emit('getMIS',d);
+}
+
 function eraseTest(){
 	$("#TestSet").prop("disabled",false);
 	localStorage.setItem('dataset',null);
@@ -160,6 +184,10 @@ function closeMe()
 {
     alert("Thanks! Please close this window");
 }
+
+
+
+
 //Handles submitting a new message
 
 // $selectSet.append("<option>" + value + "</option>");

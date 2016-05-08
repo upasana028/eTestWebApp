@@ -158,6 +158,23 @@ socket.on('logUser',function(obj){
 	    	});
 });
 
+socket.on('getMIS',function(req) {
+	var d = new Date(req);
+	var mon = d.getMonth();
+	var day = d.getDate();
+	if(mon<10)
+		mon = "0"+mon;
+	if(day<10)
+		day = "0"+day;
+
+	db.sequelize.query('select userEmail,userSchoolName,userFileHit,score from userlogs where userDate like "'+(d.getFullYear())+"-"+(mon)+"-"
+		+(day)+'%" order by userSchoolName').then(function(obj) {
+				socket.emit('giveMIS',{
+					ts:JSON.stringify(obj)
+				})
+			});
+});
+
 
 });
 
