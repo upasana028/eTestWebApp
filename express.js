@@ -154,7 +154,8 @@ socket.on('logUser',function(obj){
 	    		userSchoolName:obj.scName,
 	    		userDate: Date(),
 	    		userFileHit: obj.file,
-	    		score:obj.score
+	    		score:obj.score,
+	    		total:obj.total
 	    	});
 });
 
@@ -167,7 +168,7 @@ socket.on('getMIS',function(req) {
 	if(day<10)
 		day = "0"+day;
 
-	db.sequelize.query('select userEmail,userSchoolName,userFileHit,score from userlogs where userDate like "'+(d.getFullYear())+"-"+(mon)+"-"
+	db.sequelize.query('select userEmail,userSchoolName,userFileHit,score,total from userlogs where userDate like "'+(d.getFullYear())+"-"+(mon)+"-"
 		+(day)+'%" order by userSchoolName').then(function(obj) {
 				socket.emit('giveMIS',{
 					ts:JSON.stringify(obj)

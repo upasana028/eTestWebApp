@@ -19,6 +19,10 @@ return sequelize.define('userlog',{
 	score : {
 		type: DataTypes.STRING,
 		allowedNull : true
+	},
+	total : {
+		type: DataTypes.STRING,
+		allowedNull : true
 	}
 });
 };

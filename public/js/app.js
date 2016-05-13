@@ -69,12 +69,12 @@ socket.on('giveMIS',function(obj){
 	
 	
 	var s=jQuery.parseJSON(obj.ts);
-	var data = "<tr><th>Email</th><th>schoolName</th><th>File</th><th>Score</th></tr>";
+	var data = "<tr><th>Email</th><th>schoolName</th><th>File</th><th>Score</th><th>Total</th></tr>";
 	$("#misresult").empty();
 	console.log(s[0].length);
 	for (var i = s[0].length - 1; i >= 0; i--) {
 		data = data + "<tr><td>"+s[0][i].userEmail + "</td><td>"+s[0][i].userSchoolName+"</td><td>"
-		+s[0][i].userFileHit+"</td><td>"+s[0][i].score+"</td></tr>"
+		+s[0][i].userFileHit+"</td><td>"+s[0][i].score+"</td><td>"+s[0][i].total+"</td></tr>"
 	};
 	
 	$("#misresult").append(data);
@@ -87,11 +87,13 @@ socket.on('giveResultTotal',function(obj){
 	var s=jQuery.parseJSON(obj.resultTotal);
 	//console.log(s);
 	var currentUser = jQuery.parseJSON(localStorage.getItem('currentUser'));
+	var t = $("#resultTotal-ques").text() ;
 	socket.emit('logUser',{
 		  	"email":currentUser.email,
 		  	"scName" : currentUser.scName,
 		  	"file" :currentUser.file,
-		  	"score":s
+		  	"score":s,
+		  	"total": t
 		  });
 	$("#resultTotal-end").text(s);
 	
