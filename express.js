@@ -2,6 +2,7 @@ var express = require('express');
 var db = require("./sql-lite.js");
 var app = express();
 var createTest = require('./lib/createTest.js');
+var createStudent = require('./lib/registerStudent.js');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var Q = [];
@@ -28,6 +29,41 @@ objTest.qPackage = packageName;
 objTest.qChapter = chapter;
 objTest.qFileName = fileName;
 createTest.setTest(objTest,test,db);
+
+res.send("We got this test!");
+});
+
+app.get('/registerStudent',function(req,res){
+
+var username = req.query['username'];
+var email = req.query['email'];
+var password = req.query['password'];
+var studclass = req.query['class'];
+var section = req.query['section'];
+var rollno = req.query['roll'];
+var school = req.query['school'];
+
+//registerStudent?username=upsana&email=aesf&password=1212&class=12&section=A&roll=1212
+var objTest = {};
+objTest.username = username;
+objTest.email = email;
+objTest.password = password;
+objTest.studclass = studclass;
+objTest.section = section;
+objTest.rollno = rollno;
+objTest.school = school;
+/*
+/registerStudent?
+username=upsana&
+email=aesf&
+school=a&
+password=1212&
+class=4&
+section=B&
+roll=121
+*/
+
+createStudent.setStud(objTest,db);
 
 res.send("We got this test!");
 });

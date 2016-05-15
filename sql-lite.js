@@ -12,6 +12,7 @@ db.qAnswer = sequelize.import(str + "/database/models/answer.js")
 db.eTest = sequelize.import(str + "/database/models/etest.js");
 db.eTestQue = sequelize.import(str + "/database/models/test-question.js");
 db.userlog = sequelize.import(str + "/database/models/userlog.js");
+db.studProfile = sequelize.import(str + "/database/models/studentProfile.js");
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 module.exports = db;
