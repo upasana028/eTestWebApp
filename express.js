@@ -64,6 +64,7 @@ roll=121
 */
 
 if(createStudent.setStud(objTest,db)){
+	res.setHeader("Access-Control-Allow-Methods", "GET");
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 	res.setHeader('Access-Control-Allow-Origin', 'http://www.learnmyway.in');
 	
