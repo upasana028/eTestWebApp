@@ -5,9 +5,11 @@ var createTest = require('./lib/createTest.js');
 var createStudent = require('./lib/registerStudent.js');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var cors = require('cors');
 var Q = [];
 var qArray = [];
 app.use(express.static(__dirname+'/public'));
+app.use(cors());
 app.get('/home',function(req,res){
 	res.send("Welcome to the world of Elearning");
 });
@@ -33,7 +35,7 @@ createTest.setTest(objTest,test,db);
 res.send("We got this test!");
 });
 
-app.get('/registerStudent',function(req,res){
+app.get('/registerStudent',cors(),function(req,res){
 
 var username = req.query['username'];
 var email = req.query['email'];
