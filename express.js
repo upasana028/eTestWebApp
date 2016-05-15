@@ -34,8 +34,10 @@ createTest.setTest(objTest,test,db);
 
 res.send("We got this test!");
 });
-
-app.get('/registerStudent',cors(),function(req,res){
+var corsOptions = {
+  origin: 'http://www.learnmyway.in'
+};
+app.get('/registerStudent',cors(corsOptions),function(req,res){
 
 var username = req.query['username'];
 var email = req.query['email'];
