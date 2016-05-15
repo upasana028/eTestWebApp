@@ -68,9 +68,9 @@ roll=121
 */
 
 createStudent.setStud(objTest,db,function(obj){
-	console.log(obj);
+	res.send(obj);
 });
-res.send("dod");
+
 	
 });
 
