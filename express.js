@@ -67,7 +67,10 @@ section=B&
 roll=121
 */
 
-res.send(createStudent.setStud(objTest,db));
+createStudent.setStud(objTest,db,function(obj){
+	console.log(obj);
+});
+res.send("dod");
 	
 });
 
