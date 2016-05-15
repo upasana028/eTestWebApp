@@ -63,8 +63,13 @@ section=B&
 roll=121
 */
 
-if(createStudent.setStud(objTest,db))
+if(createStudent.setStud(objTest,db)){
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+	res.setHeader('Access-Control-Allow-Origin', 'http://www.learnmyway.in');
+	
+	
     res.send("YES");
+}
 else
 	res.send("NO")
 });
