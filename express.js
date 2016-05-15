@@ -63,9 +63,10 @@ section=B&
 roll=121
 */
 
-createStudent.setStud(objTest,db);
-
-res.send("We got this test!");
+if(createStudent.setStud(objTest,db))
+    res.send("YES");
+else
+	res.send("NO")
 });
 
 
