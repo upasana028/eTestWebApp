@@ -13,6 +13,26 @@ socket.on('giveTests',function(obj){
 	});
 	
 });
+
+
+function browseQuestions () {
+	//console.log(jQuery('#colTests').val());
+
+socket.emit('browseQuestions',{
+	test: jQuery('#colTests').val()}
+	);
+}
+
+socket.on('replyBrowseQuestions',function (obj) {
+	var s=jQuery.parseJSON(obj.ts);
+	
+	var data = "<tr><th>ID</th><th>QuestionText</th></tr>";
+	for (var i = s[0].length - 1; i >= 0; i--) {
+		data = data + "<tr><td>"+s[0][i].id+"</td><td>"+s[0][i].qText+"</td></tr>";
+	}
+	$("#qTable").html(data);
+});
+
 $( window ).load(function() {
   
   
@@ -78,6 +98,22 @@ socket.on('giveMIS',function(obj){
 	};
 	
 	$("#misresult").append(data);
+});
+
+function getTests(){
+	socket.emit('getTests');
+
+}
+
+socket.on('listTests',function(obj){
+	
+	var s=jQuery.parseJSON(obj.ts);
+	//console.log(s[0]);
+	var data = "";
+	for (var i = s[0].length - 1; i >= 0; i--) {
+		data = data + "<option>"+s[0][i].qFileName+"</option>";
+	}
+	$("#colTests").append(data);
 });
 
 socket.on('giveResultTotal',function(obj){

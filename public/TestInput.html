@@ -2,9 +2,17 @@
 <body>
 	<form action="/setQuestion" method="GET">
 		File Name:<input type="text" name="fileName" id="fileName"/><br>
+
 		Converted to Text:<br><textarea rows="4" cols="50" name="test" id="test" ></textarea><br>
 		<input type="submit">
 	</form>
+
+	<form method="post" enctype="multipart/form-data" action="/upload">
+	Question Id:<input type="text" name="qid" id="qid"/><br>
+    <input type="file" name="file">
+    <input type="submit" value="Submit">
+</form>
+
 
 </body>
 </html>

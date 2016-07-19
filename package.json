@@ -12,6 +12,8 @@
   "author": "Upasana Sharma",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-busboy": "0.0.2",
     "cors": "^2.7.1",
     "express": "^4.13.4",
     "sequelize": "^3.18.0",

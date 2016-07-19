@@ -1,6 +1,9 @@
 var express = require('express');
 var db = require("./sql-lite.js");
 var app = express();
+var path = require('path'),
+fs = require('fs');
+var bodyParser = require('body-parser')
 var createTest = require('./lib/createTest.js');
 var createStudent = require('./lib/registerStudent.js');
 var http = require('http').Server(app);
@@ -9,6 +12,14 @@ var cors = require('cors');
 var Q = [];
 var qArray = [];
 app.use(express.static(__dirname+'/public'));
+app.use(bodyParser.json());
+var busboy = require('connect-busboy');
+app.use(busboy()); 
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
 app.use(cors());
 app.get('/home',function(req,res){
 	res.send("Welcome to the world of Elearning");
@@ -34,6 +45,48 @@ createTest.setTest(objTest,test,db);
 
 res.send("We got this test!");
 });
+
+
+
+app.post('/upload', function (req, res) {
+	try{
+	console.log(req.body);
+    var fstream;
+    var questionId;
+    req.pipe(req.busboy);
+    console.log("asdcfvgh");
+req.busboy.on('field', function(fieldname, val) {
+      console.log(fieldname, val);
+     req.body[fieldname] = val;
+     questionId = val;
+   });
+
+    req.busboy.on('file', function (fieldname, file, filename, encoding, mimeType) {
+    	if(mimeType.search("jpeg"))
+    		questionId = questionId + "."+"jpeg";
+    	else if(mimeType.search("jpg"))
+    		questionId = questionId + "."+"jpg";
+    	else if(mimeType.search("png"))
+    		questionId = questionId + "."+"png";
+        console.log("Uploading: " + questionId); 
+        fstream = fs.createWriteStream(__dirname + '/files/' + questionId);
+        file.pipe(fstream);
+        fstream.on('close', function () {
+            res.redirect('back');
+        });
+    });
+	}
+	catch(err){
+		console.log(err);
+	}
+});
+
+app.get('/image', function (req, res) {
+	console.log(req.query.id);
+	filename = "11036540_966656120019928_38150030608219368_n.jpg";
+    res.sendfile(path.resolve(__dirname + '/files/' + filename));
+});
+
 var corsOptions = {
   origin: 'http://www.learnmyway.in'
 };
@@ -218,6 +271,33 @@ socket.on('getMIS',function(req) {
 			});
 });
 
+
+socket.on('getTests',function(req) {
+	db.sequelize.query('select qFileName from eTests').then(function(obj) {
+
+		console.log(obj);
+				socket.emit('listTests',{
+
+					ts:JSON.stringify(obj)
+				})
+			});
+});
+
+socket.on('browseQuestions',function(req) {
+console.log(req['test']);
+var obj = "";
+var test = req['test'];
+console.log(test);
+if(test!=undefined)
+	db.sequelize.query("select questions.id,qText from questions,testquestions,eTests where questions.id = testquestions.qQuestionId and testquestions.qTestId = eTests.id and eTests.qFilename like '"+ test+"'").then(function(obj) {
+console.log(obj);
+				socket.emit('replyBrowseQuestions',{
+					ts:JSON.stringify(obj)
+				})
+			});
+
+
+});
 
 });
 

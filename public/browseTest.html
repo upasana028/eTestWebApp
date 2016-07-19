@@ -1,0 +1,22 @@
+<html>
+<script src="/js/jquery-2.2.0.min.js"></script>
+    <script src="/js/socket.io-1.4.4.js"></script>
+    <script src="/js/app.js"></script>
+<body onload="getTests()">
+	
+
+	
+		<select name="colTests" id="colTests"></select>
+		<button  onclick="browseQuestions()">Submit</button>
+	<br><br>
+	<div id="questionInTest" name="questionInTest">
+	<table border=1 id="qTable" name="qTable" style="
+    border-style: hidden;
+">
+	<tr><th>ID</th><th>QuestionText</th></tr>
+	</table>
+	</div>
+
+
+</body>
+</html>
