@@ -153,7 +153,7 @@ function setQuestionDiv(s,index){
 	jQuery.each(opttions,function(i,value){
 		//console.log(s.id);
 		$Qid.val(s.id);
-		var url =  "http://localhost:8080/image?id="+$Qid.val();
+		var url =  "/image?id="+$Qid.val();
 		console.log(url);
 		$Sid.val(index);
 		$Qp.append('<input type="radio" id="answers" name="answers" value="'+value+'">'+value+'<br>');
