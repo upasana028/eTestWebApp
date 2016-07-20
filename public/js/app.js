@@ -159,11 +159,16 @@ function setQuestionDiv(s,index){
 		$Qp.append('<input type="radio" id="answers" name="answers" value="'+value+'">'+value+'<br>');
 		//document.getElementById("QuestionImage").style.backgroundImage = "url("+url+")";
 		$("#QuestionImage").attr("src","");
+		$("#QuestionImage").css('display','block');
 		$("#QuestionImage").attr("src",url);
 	});
 }
 
 }
+
+$("#QuestionImage").error(function () { 
+    $(this).hide(); 
+});
 
 function showNext(){
 	var $Qid = jQuery('#Qid');

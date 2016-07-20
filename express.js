@@ -106,7 +106,7 @@ app.get('/image', function (req, res) {
 				 res.sendfile(path.resolve(idFromDb));
 				}
 				else
-					res.send();
+					res.sendStatus(404);
 			});
    
 });
