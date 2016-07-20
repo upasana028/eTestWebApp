@@ -144,7 +144,8 @@ function setQuestionDiv(s,index){
 	var $Qp = jQuery('#OptionWindow');
 	var $Qid = jQuery('#Qid');
 	var $Sid = jQuery('#Sid');
-
+	
+	
 	$QuestionWindow.find('p').text(s.qText);
 	var opttions = s.optionSet;
 	$Qp.empty();
@@ -152,9 +153,13 @@ function setQuestionDiv(s,index){
 	jQuery.each(opttions,function(i,value){
 		//console.log(s.id);
 		$Qid.val(s.id);
+		var url =  "http://localhost:8080/image?id="+$Qid.val();
+		console.log(url);
 		$Sid.val(index);
 		$Qp.append('<input type="radio" id="answers" name="answers" value="'+value+'">'+value+'<br>');
-	
+		//document.getElementById("QuestionImage").style.backgroundImage = "url("+url+")";
+		$("#QuestionImage").attr("src","");
+		$("#QuestionImage").attr("src",url);
 	});
 }
 
