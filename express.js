@@ -50,26 +50,36 @@ res.send("We got this test!");
 
 app.post('/upload', function (req, res) {
 	try{
-	console.log(req.body);
+
     var fstream;
     var questionId;
+    var filePath = "";
     req.pipe(req.busboy);
-    console.log("asdcfvgh");
+    
 req.busboy.on('field', function(fieldname, val) {
-      console.log(fieldname, val);
+	
      req.body[fieldname] = val;
      questionId = val;
    });
 
     req.busboy.on('file', function (fieldname, file, filename, encoding, mimeType) {
+    	var qid = questionId;
     	if(mimeType.search("jpeg"))
     		questionId = questionId + "."+"jpeg";
     	else if(mimeType.search("jpg"))
     		questionId = questionId + "."+"jpg";
     	else if(mimeType.search("png"))
     		questionId = questionId + "."+"png";
-        console.log("Uploading: " + questionId); 
-        fstream = fs.createWriteStream(__dirname + '/files/' + questionId);
+        
+        filePath = __dirname + '\\files\\' + questionId;
+        fstream = fs.createWriteStream(filePath);
+        console.log(filePath);
+        db.questionsImage.create({
+				qQuestionId:qid,
+				qImagePath:filePath
+			});
+
+        
         file.pipe(fstream);
         fstream.on('close', function () {
             res.redirect('back');
@@ -83,8 +93,19 @@ req.busboy.on('field', function(fieldname, val) {
 
 app.get('/image', function (req, res) {
 	console.log(req.query.id);
-	filename = "11036540_966656120019928_38150030608219368_n.jpg";
-    res.sendfile(path.resolve(__dirname + '/files/' + filename));
+	var idFromDb;
+	filename = req.query.id+".jpeg";
+	db.questionsImage.findOne({
+				where:{
+					qQuestionId:req.query.id
+				}
+			}).then(function(data){
+				
+				idFromDb =(JSON.parse(JSON.stringify(data)).qImagePath);
+				console.log(idFromDb);
+				 res.sendfile(path.resolve(idFromDb));
+			});
+   
 });
 
 var corsOptions = {
