@@ -100,10 +100,13 @@ app.get('/image', function (req, res) {
 					qQuestionId:req.query.id
 				}
 			}).then(function(data){
-				
+				if(data){
 				idFromDb =(JSON.parse(JSON.stringify(data)).qImagePath);
 				console.log(idFromDb);
 				 res.sendfile(path.resolve(idFromDb));
+				}
+				else
+					res.send();
 			});
    
 });
