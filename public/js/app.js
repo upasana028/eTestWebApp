@@ -150,17 +150,24 @@ function setQuestionDiv(s,index){
 	var opttions = s.optionSet;
 	$Qp.empty();
 	//console.log(s);
+	$Qid.val(s.id);
+	var url =  "/image?id="+$Qid.val();
+	console.log(url);
+	$("#QuestionImage").attr("src","");
+        $("#QuestionImage").css('display','block');
+//        $("#QuestionImage").attr("src",url);
+
 	jQuery.each(opttions,function(i,value){
 		//console.log(s.id);
-		$Qid.val(s.id);
-		var url =  "/image?id="+$Qid.val();
-		console.log(url);
+//		$Qid.val(s.id);
+//		var url =  "/image?id="+$Qid.val();
+//		console.log(url);
 		$Sid.val(index);
 		$Qp.append('<input type="radio" id="answers" name="answers" value="'+value+'">'+value+'<br>');
 		//document.getElementById("QuestionImage").style.backgroundImage = "url("+url+")";
-		$("#QuestionImage").attr("src","");
-		$("#QuestionImage").css('display','block');
-		$("#QuestionImage").attr("src",url);
+//		$("#QuestionImage").attr("src","");
+//		$("#QuestionImage").css('display','block');
+//		$("#QuestionImage").attr("src",url);
 	});
 }
 

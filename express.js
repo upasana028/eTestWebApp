@@ -204,6 +204,7 @@ createStudent.setStud(objTest,db,function(obj){
 			 	
 		});
 		socket.on('populateTest',function(obj){
+		console.log("popultaed Test");
 			var TestSet  = [];
 			db.eTest.findAll({
 				  where: {
